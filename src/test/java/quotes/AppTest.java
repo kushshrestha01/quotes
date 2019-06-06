@@ -3,12 +3,26 @@
  */
 package quotes;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class AppTest {
-    @Test public void testAppHasAGreeting() {
+    @Test
+    public void testAppHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
+
+    @Test
+    public void testJsonReader() {
+        App testReadJson = new App();
+        int expectedOutput = 1;
+        int output = testReadJson.readJson().size();
+        assertEquals("checking if there is any output",
+                1,
+                output);
+    }
+
 }
