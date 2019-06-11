@@ -4,16 +4,23 @@
 package quotes;
 
 import com.google.gson.Gson;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class App {
 
     public static void main(String[] args) {
+
+        System.out.println("Daily quotes");
         System.out.println(readJson().get(0));
+        System.out.println();
+        System.out.println("Swanson quotes");
+        System.out.println(getQuotesFromAPI());
     }
 
     public String getGreeting() {
@@ -44,4 +51,43 @@ public class App {
             return null;
         }
     }
+
+    public static String getQuotesFromAPI(){
+        try {
+            URL url = new URL("https://ron-swanson-quotes.herokuapp.com/v2/quotes");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader((con.getInputStream())));
+            Gson gson = new Gson();
+            String[] randomQuote = gson.fromJson(reader, String[].class);
+
+            File file = new File("src/main/resources/recentquotes.json");
+            FileReader reader2 = new FileReader(file);
+            Quote[] response = gson.fromJson(reader2, Quote[].class);
+
+            Quote q = new Quote("Ron Swanson", randomQuote[0], new String[]{}, "0 likes" );
+            Quote[] result = new Quote[response.length + 1];
+            for(int i = 0; i < response.length; i++) {
+                result[i] = response[i];
+            }
+            result[response.length] = q;
+
+            String finalResults = gson.toJson(result);
+
+            System.out.println(result);
+
+            try (FileWriter file2 = new FileWriter("src/main/resources/recentquotes.json")) {
+                file2.write(finalResults);
+            }
+
+            return randomQuote[0];
+
+        }
+        catch (IOException e) {
+            System.out.println(readJson().get(0));
+            return null;
+        }
+    }
+
+
+
 }
