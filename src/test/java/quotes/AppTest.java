@@ -3,9 +3,15 @@
  */
 package quotes;
 
+import com.google.gson.Gson;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 import static org.junit.Assert.*;
 
 
@@ -33,9 +39,25 @@ public class AppTest {
     }
 
     @Test
-    public void testIfAPIDataIsAdded(){
+    public void testIfAPIDataIsAdded() throws FileNotFoundException {
         App testApp = new App();
+        File file = new File("src/main/resources/recentquotes.json");
+        FileReader reader = new FileReader(file);
+        Gson gson = new Gson();
+        Quote[] response = gson.fromJson(reader, Quote[].class);
+        int lengthBeforeRunningQuotesAPI = response.length + 1;
 
+        testApp.getQuotesFromAPI();
+
+        File fileAfter = new File("src/main/resources/recentquotes.json");
+        FileReader readerAfter = new FileReader(fileAfter);
+        Gson gsonAfter = new Gson();
+        Quote[] responseAfter = gson.fromJson(readerAfter, Quote[].class);
+        int lengthAfterRunningQuotesAPI = responseAfter.length;
+
+        assertEquals("checking for length JSON file before and after",
+                lengthBeforeRunningQuotesAPI,
+                lengthAfterRunningQuotesAPI);
     }
 
 }
