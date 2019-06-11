@@ -73,8 +73,6 @@ public class App {
 
             String finalResults = gson.toJson(result);
 
-            System.out.println(result);
-
             try (FileWriter file2 = new FileWriter("src/main/resources/recentquotes.json")) {
                 file2.write(finalResults);
             }

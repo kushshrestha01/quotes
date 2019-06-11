@@ -3,6 +3,7 @@
  */
 package quotes;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,6 +24,18 @@ public class AppTest {
         assertEquals("checking if there is any output",
                 1,
                 output);
+    }
+
+    @Test
+    public void testGetQuotesFromAPI() {
+        App testApp = new App();
+        assertNotNull(testApp.getQuotesFromAPI());
+    }
+
+    @Test
+    public void testIfAPIDataIsAdded(){
+        App testApp = new App();
+
     }
 
 }
