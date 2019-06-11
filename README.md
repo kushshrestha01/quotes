@@ -18,3 +18,4 @@ Grab quotes from an API also and display those to the user.
 
 ## Approach & Efficiency
 Able to grab data from API and display it to the user and add it the current database.
+./gradlew run in command line to run the app.
