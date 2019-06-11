@@ -8,7 +8,7 @@ Using GSON to parse .json file to show the random Quote form Author when the app
 All test passed.
 
 
-# Lab 9:Potent Quotables(Lab * continue)
+# Lab 9:Potent Quotables(Lab 8 continue)
 Grab quotes from an API also and display those to the user.
 
 ## Featured Task
