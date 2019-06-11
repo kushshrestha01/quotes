@@ -26,7 +26,6 @@ public class App {
         try {
             File file = new File("src/main/resources/recentquotes.json");
             FileReader reader = new FileReader(file);
-//            BufferedReader br = new BufferedReader(reader);
             Gson gson = new Gson();
             Quote[] response = gson.fromJson(reader, Quote[].class);
 
